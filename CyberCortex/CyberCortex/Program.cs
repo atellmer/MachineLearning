@@ -18,6 +18,7 @@ namespace CyberCortex
             string path = root + @"samples\samples.csv";
             int amountLayers = 2;
             int amountNeurons = 3;
+            double alfaFactor = 1;
 
             double[,] patterns = null;
             double[,] answers = null;
@@ -31,6 +32,7 @@ namespace CyberCortex
                 Store.SetAmountLayers(amountLayers);
                 Store.SetAmountNeurons(amountNeurons);
                 Store.SetAmountSignals(patterns.GetLength(1));
+                Store.SetAlfaFactor(alfaFactor);
 
                 Network network = new Network(patterns, answers);
 

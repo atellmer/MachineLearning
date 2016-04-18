@@ -11,6 +11,7 @@ namespace NeuralNetwork
         private static int _amountLayers;
         private static int _amountSignals;
         private static int _amountNeurons;
+        private static double _alfaFactor;
 
         public static int GetAmountLayers()
         {
@@ -35,6 +36,14 @@ namespace NeuralNetwork
         public static void SetAmountNeurons(int value)
         {
             _amountNeurons = value;
+        }
+        public static double GetAlfaFactor()
+        {
+            return _alfaFactor;
+        }
+        public static void SetAlfaFactor(double value)
+        {
+            _alfaFactor = value;
         }
     }
 }
