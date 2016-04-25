@@ -20,7 +20,7 @@ namespace NeuralNetwork
 
         public Network(double[,] patterns, double[,] answers)
         {
-            this._layer = new Layer[Store.GetAmountLayers()];
+            this._layer = new Layer[Store.GetArchitecture().GetLength(0)];
             this._patterns = patterns;
             this._answers = answers;
             this._rand = new Random();
@@ -43,7 +43,7 @@ namespace NeuralNetwork
 
             for (int k = 0; k < _layer.GetLength(0); k++)
             {
-                _layer[k] = new Layer();
+                _layer[k] = new Layer(k);
 
                 Initializer.RandomizeSynapses(_layer[k], k, _rand);
 

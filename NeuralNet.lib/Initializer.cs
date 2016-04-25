@@ -11,7 +11,7 @@ namespace NeuralNetwork
     {
         public static void RandomizeSynapses(Layer layer, int indexLayer, Random random)
         {
-            for (int i = 0; i < Store.GetAmountNeurons(); i++)
+            for (int i = 0; i < Store.GetArchitecture()[indexLayer]; i++)
             {
                 for (int j = 0; j < Store.GetAmountSignals(); j++)
                 {

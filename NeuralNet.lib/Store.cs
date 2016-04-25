@@ -8,18 +8,17 @@ namespace NeuralNetwork
 {
     public class Store
     {
-        private static int _amountLayers;
+        private static int[] _architecture;
         private static int _amountSignals;
-        private static int _amountNeurons;
         private static double _alfaFactor = 1;
 
-        public static int GetAmountLayers()
+        public static int[] GetArchitecture()
         {
-            return _amountLayers;
+            return _architecture;
         }
-        public static void SetAmountLayers(int value)
+        public static void SetArchitecture(int[] value)
         {
-            _amountLayers = value;
+            _architecture = value;
         }
         public static int GetAmountSignals()
         {
@@ -28,14 +27,6 @@ namespace NeuralNetwork
         public static void SetAmountSignals(int value)
         {
             _amountSignals = value;
-        }
-        public static int GetAmountNeurons()
-        {
-            return _amountNeurons;
-        }
-        public static void SetAmountNeurons(int value)
-        {
-            _amountNeurons = value;
         }
         public static double GetAlfaFactor()
         {

@@ -18,9 +18,9 @@ namespace NeuralNetwork
     {
         private Neuron[] _neurons;
 
-        public Layer()
+        public Layer(int indexLayer)
         {
-            this._neurons = new Neuron[Store.GetAmountNeurons()];
+            this._neurons = new Neuron[Store.GetArchitecture()[indexLayer]];
 
             for (int i = 0; i < this._neurons.GetLength(0); i++)
             {
