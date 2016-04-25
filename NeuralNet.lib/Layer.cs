@@ -8,10 +8,11 @@ namespace NeuralNetwork
 {
     public interface ILayer
     {
-        double GetCore(int x);
-        void SetCore(int x, double value);
-        double GetSynapse(int x, int y);
-        void SetSynapse(int x, int y, double value);
+        double GetCoreInNeuron(int x);
+        void SetCoreInNeuron(int x);
+        double GetSynapseInNeuron(int x, int y);
+        void SetSynapseInNeuron(int x, int y, double value);
+        double GetAmountSynapsesInNeuron(int x);
     }
 
     public class Layer : ILayer
@@ -20,29 +21,41 @@ namespace NeuralNetwork
 
         public Layer(int indexLayer)
         {
-            this._neurons = new Neuron[Store.GetArchitecture()[indexLayer]];
+            this._neurons = new Neuron[Store.GetAmountNeuronsInLayer(indexLayer)];
 
             for (int i = 0; i < this._neurons.GetLength(0); i++)
             {
-                this._neurons[i] = new Neuron(Store.GetAmountSignals());
+                if (indexLayer == 0)
+                {
+                    this._neurons[i] = new Neuron(Store.GetAmountSignals());
+                }
+                else
+                {
+                    this._neurons[i] = new Neuron(Store.GetAmountNeuronsInLayer(indexLayer - 1));
+                }
+                
             }
         }
 
-        public double GetCore(int x)
+        public double GetCoreInNeuron(int x)
         {
             return _neurons[x].GetCore();
         }
-        public void SetCore(int x, double value)
+        public void SetCoreInNeuron(int x)
         {
-            _neurons[x].SetCore(value);
+            _neurons[x].SetCore();
         }
-        public double GetSynapse(int x, int y)
+        public double GetSynapseInNeuron(int x, int y)
         {
             return _neurons[x].GetSynapse(y);
         }
-        public void SetSynapse(int x, int y, double value)
+        public void SetSynapseInNeuron(int x, int y, double value)
         {
             _neurons[x].SetSynapse(y, value);
+        }
+        public double GetAmountSynapsesInNeuron(int x)
+        {
+            return _neurons[x].GetAmountSynapses();
         }
     }
 }

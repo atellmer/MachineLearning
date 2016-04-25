@@ -13,17 +13,17 @@ namespace NeuralNetwork
     public class Network : INetwork
     {
         private Layer[] _layer;
+        private Outer _outer;
         private double[,] _patterns;
         private double[,] _answers;
-        private Random _rand;
 
 
         public Network(double[,] patterns, double[,] answers)
         {
-            this._layer = new Layer[Store.GetArchitecture().GetLength(0)];
+            this._layer = new Layer[Store.GetAmountLayers()];
+            this._outer = new Outer();
             this._patterns = patterns;
             this._answers = answers;
-            this._rand = new Random();
         }
 
 
@@ -39,13 +39,11 @@ namespace NeuralNetwork
             Console.WriteLine("1. Create Network...");
             Console.WriteLine(new string('-', 30));
 
-            Initializer.NormalizeData(_patterns);
+            Data.Normalize(_patterns);
 
             for (int k = 0; k < _layer.GetLength(0); k++)
             {
                 _layer[k] = new Layer(k);
-
-                Initializer.RandomizeSynapses(_layer[k], k, _rand);
 
                 Console.WriteLine("Initialization layer #{0}", k + 1);
             }

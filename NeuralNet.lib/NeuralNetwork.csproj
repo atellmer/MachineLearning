@@ -41,11 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationFunction.cs" />
-    <Compile Include="Initializer.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Neuron.cs" />
-    <Compile Include="Output.cs" />
+    <Compile Include="Outer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store.cs" />
   </ItemGroup>

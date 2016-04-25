@@ -16,7 +16,8 @@ namespace CyberCortex
             string root = Environment.CurrentDirectory.Substring(0, 19);
 
             string path = root + @"samples\samples.csv";
-            int[] architecture = new int[] { 3, 2};
+            int[] architecture = new int[] { 3, 2, 5};
+            int amountClasses = 2;
             double alfaFactor = 1;
            
 
@@ -31,6 +32,7 @@ namespace CyberCortex
 
                 Store.SetArchitecture(architecture);
                 Store.SetAmountSignals(patterns.GetLength(1));
+                Store.SetAmountClasses(amountClasses);
                 Store.SetAlfaFactor(alfaFactor);
 
                 Network network = new Network(patterns, answers);
