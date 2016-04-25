@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NeuralNetwork
 {
-    public static class ActivationFunction
+    public static class Function
     {
         public static double Sigmoid(double value)
         {

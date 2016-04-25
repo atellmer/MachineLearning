@@ -39,7 +39,7 @@ namespace NeuralNetwork
             
             for (int i = 0; i < this._synapses.GetLength(0); i++)
             {
-                this._synapses[i] = getRandom(Store.GetRandom());
+                this._synapses[i] = GetRandom(Store.GetRandom());
             }
         }
 
@@ -71,7 +71,7 @@ namespace NeuralNetwork
             {
                 _core += _sensors[i] * _synapses[i];
             }
-            _axon = ActivationFunction.Sigmoid(_core);
+            _axon = Function.Sigmoid(_core);
         }
 
         public double GetAxon()
@@ -84,7 +84,7 @@ namespace NeuralNetwork
             return _synapses.GetLength(0);
         }
 
-        private double getRandom(Random random)
+        private double GetRandom(Random random)
         {
             return random.Next(-50, 50) * 0.01 + random.NextDouble() * 0.01;
         }
