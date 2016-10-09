@@ -14,14 +14,17 @@ namespace NeuralNetwork
     {
         private Layer[] _layer;
         private Outer _outer;
+        private Trainer _trainer;
         private double[,] _patterns;
         private double[,] _answers;
+        
 
 
         public Network(double[,] patterns, double[,] answers)
         {
             this._layer = new Layer[Store.GetAmountLayers()];
             this._outer = new Outer();
+            this._trainer = new Trainer();
             this._patterns = patterns;
             this._answers = answers;
         }

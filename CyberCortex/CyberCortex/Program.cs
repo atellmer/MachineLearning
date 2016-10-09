@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,23 +14,22 @@ namespace CyberCortex
     {
         static void Main(string[] args)
         {
-            Console.BufferHeight = 10000;
-            string root = Environment.CurrentDirectory.Substring(0, 19);
-
-            string path = root + @"samples\samples.csv";
-            int[] architecture = new int[] { 3, 2, 5};
+            string fileNameOfTrainingSamples = @"samples\training_samples.csv";
+            int[] architecture = new int[] { 3 };
             int amountClasses = 2;
             double alfaFactor = 1;
-           
 
+            Console.BufferHeight = 10000;
+            string rootDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            string fullPathToSamples = new Uri(Path.Combine(rootDir, fileNameOfTrainingSamples)).LocalPath;
             double[,] patterns = null;
             double[,] answers = null;
             Samples samples = new Samples();
 
-            if (samples.GetData(path))
+            if (samples.GetData(fullPathToSamples))
             {
-                patterns = samples.ConvertToDouble(samples.GetPatterns());
-                answers = samples.ConvertToDouble(samples.GetAnswers());
+                patterns = Samples.ConvertToDouble(samples.GetPatterns());
+                answers = Samples.ConvertToDouble(samples.GetAnswers());
 
                 Store.SetArchitecture(architecture);
                 Store.SetAmountSignals(patterns.GetLength(1));

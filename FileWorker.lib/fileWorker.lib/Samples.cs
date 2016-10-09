@@ -11,8 +11,6 @@ namespace FileWorker
     {
         bool GetData(string path);
         bool SaveData(string path, string[,] data);
-        double[,] ConvertToDouble(string[,] dataToConvert);
-        string[,] ConvertToString(double[,] dataToConvert);
         string[,] GetPatterns();
         string[,] GetAnswers();
     }
@@ -100,7 +98,7 @@ namespace FileWorker
             return success;
         }
 
-        public double[,] ConvertToDouble(string[,] dataToConvert)
+        public static double[,] ConvertToDouble(string[,] dataToConvert)
         {
             double[,] data = new double[dataToConvert.GetLength(0), dataToConvert.GetLength(1)];
 
@@ -115,7 +113,7 @@ namespace FileWorker
             return data;
         }
 
-        public string[,] ConvertToString(double[,] dataToConvert)
+        public static string[,] ConvertToString(double[,] dataToConvert)
         {
             string[,] data = new string[dataToConvert.GetLength(0), dataToConvert.GetLength(1)];
 
