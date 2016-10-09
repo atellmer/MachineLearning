@@ -15,31 +15,34 @@ namespace CyberCortex
         static void Main(string[] args)
         {
             string fileNameOfTrainingSamples = @"samples\training_samples.csv";
-            int[] architecture = new int[] { 3 };
+            int[] architecture = new int[] { 4, 3, 2 };
             int amountClasses = 2;
             double alfaFactor = 1;
 
             Console.BufferHeight = 10000;
             string rootDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
             string fullPathToSamples = new Uri(Path.Combine(rootDir, fileNameOfTrainingSamples)).LocalPath;
-            double[,] patterns = null;
-            double[,] answers = null;
-            Samples samples = new Samples();
 
-            if (samples.GetData(fullPathToSamples))
+            if (Samples.IsExist(fullPathToSamples))
             {
-                patterns = Samples.ConvertToDouble(samples.GetPatterns());
-                answers = Samples.ConvertToDouble(samples.GetAnswers());
+                if (Samples.GetPatterns(fullPathToSamples) != null && Samples.GetAnswers(fullPathToSamples) != null)
+                {
+                    double[,] patterns = Samples.ConvertToDouble(Samples.GetPatterns(fullPathToSamples));
+                    double[,] answers = Samples.ConvertToDouble(Samples.GetAnswers(fullPathToSamples));
 
-                Store.SetArchitecture(architecture);
-                Store.SetAmountSignals(patterns.GetLength(1));
-                Store.SetAmountClasses(amountClasses);
-                Store.SetAlfaFactor(alfaFactor);
+                    Store.SetArchitecture(architecture);
+                    Store.SetAmountSignals(patterns.GetLength(1));
+                    Store.SetAmountClasses(amountClasses);
+                    Store.SetAlfaFactor(alfaFactor);
 
-                Network network = new Network(patterns, answers);
-
-                network.Init();
+                    Network network = new Network(patterns, answers);
+                    network.Init();
+                }
+            } else {
+                Console.WriteLine("Check your path to file!");
             }
+
+
             Console.ReadKey();
         }
     }

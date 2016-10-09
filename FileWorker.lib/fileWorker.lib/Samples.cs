@@ -7,25 +7,11 @@ using System.IO;
 
 namespace FileWorker
 {
-    public interface ISamples
+    public static class Samples
     {
-        bool GetData(string path);
-        bool SaveData(string path, string[,] data);
-        string[,] GetPatterns();
-        string[,] GetAnswers();
-    }
-
-    public class Samples : ISamples
-    {
-        private string[,] _patterns = null;
-        private string[,] _answers = null;
-        private int _length = 0;
-        private int _quantity = 0;
-
-
-        public bool GetData(string path)
+        public static string[,] GetPatterns(string path)
         {
-            bool success = true;
+            string[,] patterns = null;
 
             if (IsExist(path))
             {
@@ -33,41 +19,67 @@ namespace FileWorker
                 {
                     char[] delimetr = ";".ToCharArray();
                     string[] content = File.ReadAllLines(path);
-                    string[] split = content[0].Split(delimetr);
+                    int lengthPattern = content[0].Split(delimetr).GetLength(0) - 1;
+                    string[] split = null;
 
-                    _patterns = new string[content.GetLength(0), split.GetLength(0) - 1];
-                    _answers = new string[content.GetLength(0), 1];
-                    _length = split.GetLength(0) - 1;
-                    _quantity = content.GetLength(0);
+                    patterns = new string[content.GetLength(0), lengthPattern];
 
                     for (int i = 0; i < content.GetLength(0); i++)
                     {
                         split = content[i].Split(delimetr);
-                        for (int j = 0; j < split.GetLength(0); j++)
+                        for (int j = 0; j < split.GetLength(0) - 1; j++)
                         {
-                            if (j != split.GetLength(0) - 1)
-                            {
-                                _patterns[i, j] = split[j];
-                            }
-                            else
-                            {
-                                _answers[i, 0] = split[j];
-                            }
+                          patterns[i, j] = split[j];    
                         }
                     }
                 }
-                catch
+                catch (Exception e)
                 {
                     Console.WriteLine("-----------------------------");
                     Console.WriteLine("Error! Can not read file!");
+                    Console.WriteLine(e);
                     Console.WriteLine("-----------------------------");
-                    success = false;
                 }
+
             }
-            return success;
+
+            return patterns;
         }
 
-        public bool SaveData(string path, string[,] data)
+        public static string[,] GetAnswers(string path)
+        {
+            string[,] answers = null;
+
+            if (IsExist(path))
+            {
+                try
+                {
+                    char[] delimetr = ";".ToCharArray();
+                    string[] content = File.ReadAllLines(path);
+                    string[] split = null;
+
+                    answers = new string[content.GetLength(0), 1];
+
+                    for (int i = 0; i < content.GetLength(0); i++)
+                    {
+                        split = content[i].Split(delimetr);
+                        answers[i, 0] = split[split.GetLength(0) - 1];
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("Error! Can not read file!");
+                    Console.WriteLine(e);
+                    Console.WriteLine("-----------------------------");
+                }
+
+            }
+
+            return answers;
+        }
+
+        public static bool SaveData(string path, string[,] data)
         {
             bool success = true;
             string[] buffer = new string[data.GetLength(0)];
@@ -88,10 +100,11 @@ namespace FileWorker
 
                 File.WriteAllLines(path, buffer);
             }
-            catch
+            catch (Exception e)
             {
                 Console.WriteLine("-----------------------------");
                 Console.WriteLine("Error! Can not write file!");
+                Console.WriteLine(e);
                 Console.WriteLine("-----------------------------");
                 success = false;
             }
@@ -128,17 +141,8 @@ namespace FileWorker
             return data;
         }
 
-        public string[,] GetPatterns()
-        {
-            return _patterns;
-        }
 
-        public string[,] GetAnswers()
-        {
-            return _answers;
-        }
-
-        private bool IsExist(string path)
+        public static bool IsExist(string path)
         {
             return File.Exists(path);
         }

@@ -14,17 +14,14 @@ namespace NeuralNetwork
     {
         private Layer[] _layer;
         private Outer _outer;
-        private Trainer _trainer;
         private double[,] _patterns;
         private double[,] _answers;
-        
 
 
         public Network(double[,] patterns, double[,] answers)
         {
             this._layer = new Layer[Store.GetAmountLayers()];
             this._outer = new Outer();
-            this._trainer = new Trainer();
             this._patterns = patterns;
             this._answers = answers;
         }
@@ -56,6 +53,9 @@ namespace NeuralNetwork
         {
             Console.WriteLine(new string('-', 30));
             Console.WriteLine("2. Learning Network...");
+
+            Trainer _trainer = new Trainer(this._layer, this._outer, this._patterns, this._answers);
+            _trainer.StartLearning();
         }
 
         private void TestingNetwork()
