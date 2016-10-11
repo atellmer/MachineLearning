@@ -12,7 +12,7 @@ namespace NeuralNetwork
     }
     public class Network : INetwork
     {
-        private Layer[] _layer;
+        private Layer[] _layers;
         private Outer _outer;
         private double[,] _patterns;
         private double[,] _answers;
@@ -20,7 +20,7 @@ namespace NeuralNetwork
 
         public Network(double[,] patterns, double[,] answers)
         {
-            this._layer = new Layer[Store.GetAmountLayers()];
+            this._layers = new Layer[Store.GetAmountLayers()];
             this._outer = new Outer();
             this._patterns = patterns;
             this._answers = answers;
@@ -41,9 +41,9 @@ namespace NeuralNetwork
 
             Data.Normalize(_patterns);
 
-            for (int k = 0; k < _layer.GetLength(0); k++)
+            for (int k = 0; k < _layers.GetLength(0); k++)
             {
-                _layer[k] = new Layer(k);
+                _layers[k] = new Layer(k);
 
                 Console.WriteLine("Initialization layer #{0}", k + 1);
             }
@@ -54,7 +54,7 @@ namespace NeuralNetwork
             Console.WriteLine(new string('-', 30));
             Console.WriteLine("2. Learning Network...");
 
-            Trainer _trainer = new Trainer(this._layer, this._outer, this._patterns, this._answers);
+            Trainer _trainer = new Trainer(this._layers, this._outer, this._patterns, this._answers);
             _trainer.StartLearning();
         }
 

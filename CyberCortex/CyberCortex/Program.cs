@@ -15,7 +15,7 @@ namespace CyberCortex
         static void Main(string[] args)
         {
             string fileNameOfTrainingSamples = @"samples\training_samples.csv";
-            int[] architecture = new int[] { 4, 3, 2 };
+            int[] architecture = new int[] { 3, 2 };
             int amountClasses = 2;
             double alfaFactor = 1;
 

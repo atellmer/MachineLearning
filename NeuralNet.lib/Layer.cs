@@ -8,11 +8,15 @@ namespace NeuralNetwork
 {
     public interface ILayer
     {
+        double GetAxonInNeuron(int x);
         double GetCoreInNeuron(int x);
         void SetCoreInNeuron(int x);
         double GetSynapseInNeuron(int x, int y);
         void SetSynapseInNeuron(int x, int y, double value);
+        double GetSensorInNeuron(int x, int y);
+        void SetSensorInNeuron(int x, int y, double value);
         double GetAmountSynapsesInNeuron(int x);
+        int GetAmountNeurons();
     }
 
     public class Layer : ILayer
@@ -36,7 +40,14 @@ namespace NeuralNetwork
                 
             }
         }
-
+        public int GetAmountNeurons()
+        {
+            return _neurons.GetLength(0);
+        }
+        public double GetAxonInNeuron(int x)
+        {
+            return _neurons[x].GetAxon();
+        }
         public double GetCoreInNeuron(int x)
         {
             return _neurons[x].GetCore();
@@ -52,6 +63,14 @@ namespace NeuralNetwork
         public void SetSynapseInNeuron(int x, int y, double value)
         {
             _neurons[x].SetSynapse(y, value);
+        }
+        public double GetSensorInNeuron(int x, int y)
+        {
+            return _neurons[x].GetSensor(y);
+        }
+        public void SetSensorInNeuron(int x, int y, double value)
+        {
+            _neurons[x].SetSensor(y, value);
         }
         public double GetAmountSynapsesInNeuron(int x)
         {
